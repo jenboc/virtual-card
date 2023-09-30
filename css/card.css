@@ -1,14 +1,22 @@
 /* STYLES SPECIFIC TO CARD.HTML */
 @import url('https://fonts.googleapis.com/css2?family=MedievalSharp&family=Rubik&display=swap');
 
-#background {
+#wrap {
+    position: relative;
+}
+
+#wrap canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
+
+#overlay {
     width: 100%;
-    height: 100%; 
 
     display: flex;
     justify-content: center;
-
-    background-color: white;
 }
 
 #card-container { 
