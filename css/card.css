@@ -1,0 +1,45 @@
+/* STYLES SPECIFIC TO CARD.HTML */
+@import url('https://fonts.googleapis.com/css2?family=MedievalSharp&family=Rubik&display=swap');
+
+#background {
+    width: 100%;
+    height: 100%; 
+
+    display: flex;
+    justify-content: center;
+
+    background-color: white;
+}
+
+#card-container { 
+    width: 45%;
+
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+}
+
+#header-container {
+    box-sizing: border-box;
+    width: 100%;
+
+    background-color: rgba(94, 94, 94, 0.5);
+    background: 0.5;
+
+    text-align: center;
+    font-size: 100pt;
+    font-family: 'MedievalSharp', cursive;
+    font-weight: bolder;
+}
+
+#message-container {
+    box-sizing: border-box;
+    padding: 10px;
+    width: 100%;
+
+    background-color: rgba(94, 94, 94, 0.1);
+    
+    font-size: 25pt;
+    font-family: 'MedievalSharp', cursive;
+    text-wrap: pretty;
+}
