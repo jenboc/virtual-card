@@ -1,6 +1,7 @@
 // BASIC GRAPHICS CODE 
 
 const lerp = (a, b, t) => a + t * (b - a);
+const randfloat = (min, max) => min + Math.random() * (max - min + 1);
 
 class Colour 
 {
@@ -19,7 +20,12 @@ class Colour
 
     static lerp(a, b, t) 
     {
-        return Colour(lerp(a.r, b.r, t), lerp(a.g, b.g, t), lerp(a.b, b.b, t), lerp(a.a, b.a, t));
+        return new Colour(lerp(a.r, b.r, t), lerp(a.g, b.g, t), lerp(a.b, b.b, t), lerp(a.a, b.a, t));
+    }
+
+    static random()
+    {
+        return new Colour(randfloat(0, 255), randfloat(0, 255), randfloat(0, 255), randfloat(0, 1))
     }
 }
 
@@ -55,12 +61,22 @@ class Vec2
 
     static lerp(a, b, t) 
     {
-        return Vec2(lerp(a.x, b.x, t), lerp(a.y, b.y, t));
+        return new Vec2(lerp(a.x, b.x, t), lerp(a.y, b.y, t));
     }
 
     static zero() 
     {
         return new Vec2(0, 0);
+    }
+
+    static fromAngle(radians) 
+    {
+        return new Vec2(Math.cos(radians), Math.sin(radians));
+    }
+    
+    toString() 
+    {
+        return `(${this.x}, ${this.y})`;
     }
 }
 
@@ -70,6 +86,9 @@ class Canvas
     #ctx;
     #backgroundColour;
     #sprites; 
+    #spawners;
+
+    #tickComplete;
 
     constructor(canvasId, backgroundColour) 
     {
@@ -77,6 +96,19 @@ class Canvas
         this.#ctx = this.#dom.getContext("2d");
         this.#backgroundColour = backgroundColour;
         this.#sprites = []
+        this.#spawners = []
+
+        this.#tickComplete = true;
+    }
+
+    addSprite(sprite) 
+    {
+        this.#sprites.push(sprite);
+    }
+
+    addSpawner(spawner) 
+    {
+        this.#spawners.push(spawner);
     }
 
     updateDimensions() 
@@ -87,6 +119,9 @@ class Canvas
 
     update() 
     {
+        console.log("update");
+        this.#spawners.forEach(s => s.update());
+
         const toDelete = [];
 
         for (let i = 0; i < this.#sprites.length; i++)
@@ -103,6 +138,7 @@ class Canvas
 
     draw() 
     {
+        console.log("draw");
         this.#sprites.forEach(sprite => sprite.draw(this.#ctx));
     }
 
@@ -114,10 +150,22 @@ class Canvas
 
     tick() 
     {
+        console.log("tick");
         this.updateDimensions();
         this.clear();
         this.update();
         this.draw();
+        console.log("end tick");
+    }
+
+    getWidth() 
+    {
+        return this.#dom.width;
+    }
+
+    getHeight() 
+    {
+        return this.#dom.height;
     }
 }
 
@@ -149,14 +197,12 @@ class Sprite
 
 class ParticleSettings
 {
-    constructor(startColour, endColour, startRadius, endRadius, startVelocity, endVelocity, lifetime)
+    constructor(startColour, endColour, startRadius, endRadius, lifetime)
     {
         this.startColour = startColour;
         this.endColour = endColour;
         this.startRadius = startRadius;
         this.endRadius = endRadius;
-        this.startVelocity = startVelocity;
-        this.endVelocity = endVelocity;
         this.lifetime = lifetime;
     }
 
@@ -172,15 +218,9 @@ class ParticleSettings
         return lerp(this.startRadius, this.endRadius, t);
     }
 
-    getVelocity(timeAlive) 
-    {
-        const t = timeAlive / this.lifetime;
-        return Vec2.lerp(this.startVelocity, this.endVelocity, t);
-    }
-
     isAlive(timeAlive) 
     {
-        return timeAlive >= this.lifetime;
+        return timeAlive < this.lifetime;
     }
 }
 
@@ -189,26 +229,32 @@ class Particle extends Sprite
     #settings;
     #timeAlive;
 
-    constructor(position, settings) 
+    constructor(position, velocity, gravity, settings) 
     {
-        super(position, Vec2.zero(), Vec2.zero());
+        super(position, velocity, new Vec2(0, gravity));
+        
         this.#settings = settings;
-        this.#timeAlive;
+        this.#timeAlive = 0;
     }
 
     update() 
     {
         this.#timeAlive++;
-        this._velocity = this.#settings.getVelocity(this.#timeAlive);
 
-        this.delete = this.#settings.isAlive(this.#timeAlive);
+        super.update();
+
+        this.delete = !this.#settings.isAlive(this.#timeAlive);
     }
 
     draw(ctx) 
     {
+        const radius = this.#settings.getRadius(this.#timeAlive);
+
+        if (radius <= 0) return;
+
         ctx.fillStyle = this.#settings.getColour(this.#timeAlive).toString(); 
         ctx.beginPath(); 
-        ctx.arc(this._position.x, this._position.y, this.#settings.getRadius(this.#timeAlive), 0, 2 * Math.PI);
+        ctx.arc(this._position.x, this._position.y, radius, 0, 2 * Math.PI);
         ctx.fill();
     }
 }
