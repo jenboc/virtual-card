@@ -1,16 +1,30 @@
 /* STYLES SPECIFIC TO INDEX.HTML */
 @import url('https://fonts.googleapis.com/css2?family=Oxanium&display=swap');
 
+:root {
+    --darkest: #1e2022;
+    --dark-grey: #52616a;
+    --light-grey: #c9d6de;
+    --lightest: #f0f5f9;
+}
+
 .container {
     display: flex;
     height: 100%;
     justify-content: center;
     align-items: center;
+
+    background-color: var(--darkest);
+}
+
+span {
+    color: var(--lightest);
 }
 
 button, span, input, textarea {
     font-family: 'Oxanium', monospace;
 }
+
 
 input, textarea {
     font-size: 10pt;
@@ -25,7 +39,7 @@ input, textarea {
 
     padding: 2em;
 
-    background-color: red;
+    background-color: var(--dark-grey);
 }
 
 #main-menu {
