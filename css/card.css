@@ -5,11 +5,11 @@
     position: relative;
 }
 
-#wrap canvas {
-    position: absolute;
+#animated-background {
+    position: fixed;
     top: 0;
     left: 0;
-    z-index: 0;
+    z-index: -1;
 }
 
 #overlay {
@@ -25,6 +25,8 @@
     display: flex;
     flex-direction: column;
     padding: 0;
+
+    color: white;
 }
 
 #header-container {

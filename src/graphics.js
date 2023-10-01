@@ -14,7 +14,7 @@ class Colour
 
     toString() 
     {
-        return `rgba(${r}, ${g}, ${b}, ${a})`;
+        return `rgba(${this.r}, ${this.g}, ${this.b}, ${this.a})`;
     }
 
     static lerp(a, b, t) 
@@ -74,9 +74,15 @@ class Canvas
     constructor(canvasId, backgroundColour) 
     {
         this.#dom = document.getElementById(canvasId);
-        this.#ctx = this.dom.getContext("2d");
+        this.#ctx = this.#dom.getContext("2d");
         this.#backgroundColour = backgroundColour;
         this.#sprites = []
+    }
+
+    updateDimensions() 
+    {
+        this.#dom.width = document.body.clientWidth;
+        this.#dom.height = document.body.clientHeight;
     }
 
     update() 
@@ -103,11 +109,12 @@ class Canvas
     clear() 
     {
         this.#ctx.fillStyle = this.#backgroundColour.toString();
-        this.#ctx.fillRect(0, 0, this.#dom.clientHeight, this.#dom.clientHeight)
+        this.#ctx.fillRect(0, 0, this.#dom.width, this.#dom.height)
     }
 
     tick() 
     {
+        this.updateDimensions();
         this.clear();
         this.update();
         this.draw();
