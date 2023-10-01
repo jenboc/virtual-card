@@ -4,8 +4,41 @@
         <title>Virtual Card</title>
         <link rel="stylesheet" href="css/style.css"/>
         <link rel="stylesheet" href="css/index.css"/>
+
+        <script defer src="src/index.js"></script>
     </head>
     <body>
-        
+        <div class="container">
+            <div id="main-menu">
+                <button onclick="showMenu(createMenu);">Create</button>
+                <button onclick="showMenu(loadMenu);">Load</button>
+            </div>
+
+            <div id="load-menu">
+                <span class="instruction">Please enter the code you were given:</span>
+                <textarea id="load-code" cols="50" rows="8"></textarea>
+                
+                <div class="button-container">
+                    <button onclick="showMenu(mainMenu);">Back</button>
+                    <button onclick="loadCode();">Load</button>
+                </div>
+            </div>
+
+            <div id="create-menu">
+                <span class="instruction">Please write your card.</span>
+                <input id="header-text" type="text" placeholder="Write the card's header here"/>
+                <textarea id="message-text" cols="50" rows="8">Write your message here</textarea>
+
+                <div class="button-container">
+                    <button onclick="showMenu(mainMenu);">Back</button>
+                    <button onclick="preview();">Preview</button>
+                    <button onclick="create();">Create</button>
+                </div>
+            </div>
+
+            <div id="create-result">
+                
+            </div>
+        </div>
     </body>
 </html>
