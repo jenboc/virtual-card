@@ -1,3 +1,5 @@
+// PUTTING TOGETHER THE GRAPHICS AND THE FIREWORKS TO MAKE THE BACKGROUND
+
 const GRAVITY = 0.25;
 
 const canvas = new Canvas("animated-background", new Colour(0, 0, 0, 1));

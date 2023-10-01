@@ -1,3 +1,5 @@
+// CODE FOR THE FIREWORKS
+
 const FIREWORK_COLOUR = new Colour(255, 255, 255, 1);
 const FIREWORK_RADIUS = 3;
 
