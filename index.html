@@ -5,6 +5,7 @@
         <link rel="stylesheet" href="css/style.css"/>
         <link rel="stylesheet" href="css/index.css"/>
 
+        <script defer src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
         <script defer src="src/index.js"></script>
     </head>
     <body>
@@ -38,7 +39,16 @@
             </div>
 
             <div class="menu" id="create-result">
-                
+                <span>Link:</span>
+                <input id="link-output" type="text" readonly/>
+                <span>Code:</span>
+                <textarea id="code-output" readonly cols="50" rows="8"></textarea>
+                <span>QR:</span>
+                <div id="qr"></div>
+                <div class="button-container">
+                    <button onclick="showMenu(createMenu);">Back</button>
+                    <button onclick="preview();">Reload</button>
+                </div>
             </div>
         </div>
     </body>
