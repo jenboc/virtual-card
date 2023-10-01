@@ -9,12 +9,13 @@
     </head>
     <body>
         <div class="container">
-            <div id="main-menu">
+            <div class="menu" id="main-menu">
+                <span>Virtual Card</span>
                 <button onclick="showMenu(createMenu);">Create</button>
                 <button onclick="showMenu(loadMenu);">Load</button>
             </div>
 
-            <div id="load-menu">
+            <div class="menu" id="load-menu">
                 <span class="instruction">Please enter the code you were given:</span>
                 <textarea id="load-code" cols="50" rows="8"></textarea>
                 
@@ -24,9 +25,9 @@
                 </div>
             </div>
 
-            <div id="create-menu">
+            <div class="menu" id="create-menu">
                 <span class="instruction">Please write your card.</span>
-                <input id="header-text" type="text" placeholder="Write the card's header here"/>
+                <input id="header-text" type="text" placeholder="Write the card's header here, and the message below"/>
                 <textarea id="message-text" cols="50" rows="8">Write your message here</textarea>
 
                 <div class="button-container">
@@ -36,7 +37,7 @@
                 </div>
             </div>
 
-            <div id="create-result">
+            <div class="menu" id="create-result">
                 
             </div>
         </div>
