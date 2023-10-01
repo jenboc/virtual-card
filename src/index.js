@@ -61,17 +61,25 @@ const createUrl = (headerText, messageText) => {
     return `${window.location.href}/card.html?h=${header}&m=${message}`;
 }
 
-// Create a QR Code 
-const createQr = (url) => {
-}
-
 const preview = () => {
     window.open(createUrl(headerEntry.value, messageEntry.value)).focus();
 }
 
 const create = () => {
+    if (headerEntry.value.length === 0) 
+    {
+        headerEntry.value = "YOU MUST HAVE A HEADER TO PROCEED";
+        return;
+    }
+    else if (messageEntry.value.length === 0) 
+    {
+        messageEntry.value = "YOU MUST HAVE A MESSAGE TO CONTINUE";
+        return;
+    }
+
     const code = createCode(headerEntry.value, messageEntry.value);
     const link = createUrl(headerEntry.value, messageEntry.value); 
+    document.getElementById(qrId).innerHTML = "";
     const qr = new QRCode(qrId, link);
 
     codeOutput.value = code;
