@@ -25,7 +25,7 @@ class Firework extends Sprite
         super.update(); 
 
         this.#timeAlive++;
-        if (this.#timeAlive < this.#lifetime) return; 
+        if (this.#timeAlive < this.#lifetime || this.delete) return; 
         this.delete = true; 
            
         const startColour = Colour.random();
