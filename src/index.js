@@ -58,7 +58,7 @@ const createUrl = (headerText, messageText) => {
     const header = btoa(headerText);
     const message = btoa(messageText);
 
-    return `${window.location.origin}/card.html?h=${header}&m=${message}`;
+    return `${window.location.href}/card.html?h=${header}&m=${message}`;
 }
 
 // Create a QR Code 
